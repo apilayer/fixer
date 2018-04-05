@@ -26,6 +26,11 @@ helpers do
   end
 
   def jsonp(data)
+    deprecation_message = 'This API endpoint is deprecated and will stop working on June 1st, 2018. For more information please visit: https://github.com/fixerAPI/fixer#readme'
+    data = {__deprecation_message__: deprecation_message}.merge(data)
+    headers \
+      'X-Deprecation-Message' => deprecation_message
+
     json = encode_json(data)
     callback = params.delete('callback')
     if callback
